@@ -1,13 +1,10 @@
 // Parse URL
 const params = new URLSearchParams(window.location.search);
 const seed = parseInt(params.get('seed')) || 0;
-const path = window.location.pathname.split('/').pop();
-const options = decodeURIComponent(path).replace(/\.html$/, '').split('+');
-
-// Handle redirected path if present
-let path = params.get('path') || window.location.pathname;
-path = path.split('/').pop();
-const options = decodeURIComponent(path).replace(/\.html$/, '').split('+');
+const options = params.get('options')
+  .replace(/[\[\]]/g, '')  // Remove [ and ]
+  .split(',')               // Split by comma
+  .map(item => item.trim()); // Remove extra spaces;
 
 // Simple seeded RNG
 function mulberry32(a) {
