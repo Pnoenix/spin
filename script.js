@@ -4,6 +4,11 @@ const seed = parseInt(params.get('seed')) || 0;
 const path = window.location.pathname.split('/').pop();
 const options = decodeURIComponent(path).replace(/\.html$/, '').split('+');
 
+// Handle redirected path if present
+let path = params.get('path') || window.location.pathname;
+path = path.split('/').pop();
+const options = decodeURIComponent(path).replace(/\.html$/, '').split('+');
+
 // Simple seeded RNG
 function mulberry32(a) {
   return function() {
